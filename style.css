@@ -1,0 +1,122 @@
+:root{
+    --p2-colore: #ff5252;
+    --p4-colore: #ff8c52;
+    --p8-colore: #ffb700;
+    --p16-colore: #c56cf0;
+    --p32-colore: #18dcff;
+    --p64-colore: #32ff7e;
+    --p128-colore: #ff4081;
+    --p256-colore: #59041f;
+    --p512-colore: #ff6e40;
+    --p1024-colore: #8e44ad;
+    --p2048-colore: #2d3436;
+    --p4096-colore: #b2bec3;
+    --p8192-colore: #00d2d3;
+    --p16384-colore: #ffb6c1;
+}
+
+
+body{
+    font-family: Arial,Helvetica, sans-serif;
+    text-align: center;
+}
+hr{
+    width: 500px;
+}
+#base{
+    width: 600px;
+    height: 600px;
+    background-color: antiquewhite;
+    border: 6px solid rgb(209, 213, 183); 
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+.piastr{
+    width: 90px;
+    height: 90px;
+    border: 5px solid rgb(209, 213, 183); 
+    transition: all 0.3s ease-in-out;
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-origin: center center;
+
+}
+.slittapiastr{
+    transition: transform 0.5s ease-in-out;
+}
+.nuova-piastr {
+    transform-origin: center;
+    transform: scale(0);
+    transition: transform 0.5s ease-in-out;
+}
+.espansione-colore{
+    animation: espansione 0.5s ease-in-out;
+}
+@keyframes espansione{
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+    }
+}
+.p2{
+    background-color:   var(--p2-colore);
+    color: black;
+}
+.p4{
+    background-color: var(--p4-colore);
+    color: black;
+}
+.p8{
+    background-color:  var(--p8-colore);
+    color: black;
+}
+.p16{
+    background-color: var(--p16-colore);
+    color: black;
+}
+.p32{
+    background-color: var(--p32-colore);
+    color: black;
+}
+.p64{
+    background-color: var(--p64-colore);
+    color: black;
+}
+.p128{
+    background-color:  var(--p128-colore);
+    color: black;
+}
+.p256{
+    background-color: var(--p256-colore);
+    color: black;
+}
+.p512{
+    background-color: var(--p512-colore);
+    color: black;
+}
+.p1024{
+    background-color: var(--p1024-colore);
+    color: black;
+}
+.p2048{
+    background-color: var(--p2048-colore);
+    color: black;
+}
+.p4096{
+    background-color: var(--p4096-colore);
+    color: black;
+}
+.p8192{
+    background-color: var(--p8192-colore);
+    color: black;
+}
+.p16384{
+    background-color: var(--p16384-colore);
+    color: black;
+}
