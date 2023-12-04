@@ -113,7 +113,7 @@ function nuovoGioco(){
             } else if (maxValore === 16384) {
                
                 nuovoNumero = Math.random() < 0.5 ? 32 : 64;
-            } else
+            } 
 
             base[r][c] = nuovoNumero;
             let piastr = document.getElementById(r.toString() + "-" + c.toString());
