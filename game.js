@@ -42,12 +42,10 @@ function nuovoGioco(){
 
  function setGioco() {
     base =[
-        [0,0,0,0/*,0,0*/],
-        [0,0,0,0/*,0,0*/],
-        [0,0,0,0/*,0,0*/],
-        [0,0,0,0/*,0,0*/]/*,
-        [0,0,0,0,0,0],
-        [0,0,0,0,0,0]*/
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0]
         
     ]
 
@@ -207,8 +205,9 @@ function aggiornapiastr(piastr, num) {
  });
  
  document.addEventListener("touchmove", (e) => {
+    
      e.preventDefault(); 
- 
+ });
  document.addEventListener("touchend", (e) => {
     const endTouchX = e.changedTouches[0].clientX;
     const endTouchY = e.changedTouches[0].clientY;
@@ -292,7 +291,7 @@ function slitta(riga){
  function slittaSopra(){
    
     for(let c=0;c<col;c++){
-    let riga = [base[0][c],base[1][c],base[2][c],base[3][c]/*,base[4][c],base[5][c]*/];
+    let riga = [base[0][c],base[1][c],base[2][c],base[3][c]];
         riga=slitta(riga);
         for(let r=0;r<rig;r++){
             base[r][c]=riga[r];
@@ -304,7 +303,7 @@ function slitta(riga){
  }
  function slittaSotto(){
     for(let c=0;c<col;c++){
-    let riga = [base[0][c],base[1][c],base[2][c],base[3][c]/*,base[4][c],base[5][c]*/];
+    let riga = [base[0][c],base[1][c],base[2][c],base[3][c]];
         riga.reverse();
         riga=slitta(riga);
         riga.reverse();
