@@ -223,8 +223,8 @@ function aggiornapiastr(piastr, num) {
             slittasinistra();
         }
     } else {
-        // Movimento verticale
         if (deltaY > 0) {
+            e.preventDefault();
             slittaSotto();
         } else {
             slittaSopra();
