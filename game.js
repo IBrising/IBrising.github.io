@@ -1,7 +1,7 @@
  var base;
  var punti=0;
- var rig=6;
- var col=6;
+ var rig=4;
+ var col=4;
  var minuti=0;
  var secondi=0;
  var decimi=0;
