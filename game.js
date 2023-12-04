@@ -113,7 +113,7 @@ function nuovoGioco(){
             } else if (maxValore === 16384) {
                
                 nuovoNumero = Math.random() < 0.5 ? 32 : 64;
-            } 
+            }
 
             base[r][c] = nuovoNumero;
             let piastr = document.getElementById(r.toString() + "-" + c.toString());
@@ -211,62 +211,36 @@ function aggiornapiastr(piastr, num) {
  });
  
  document.addEventListener("touchend", (e) => {
-     const endTouchX = e.changedTouches[0].clientX;
-     const endTouchY = e.changedTouches[0].clientY;
- 
-     const deltaX = endTouchX - startTouchX;
-     const deltaY = endTouchY - startTouchY;
- 
-     if (Math.abs(deltaX) > Math.abs(deltaY)) {
-         if (deltaX > 0) {
+    const endTouchX = e.changedTouches[0].clientX;
+    const endTouchY = e.changedTouches[0].clientY;
+
+    const deltaX = endTouchX - startTouchX;
+    const deltaY = endTouchY - startTouchY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Movimento orizzontale
+        if (deltaX > 0) {
+            slittadestra();
+        } else {
             slittasinistra();
-            if (haiPerso()) {
-                alert("Hai perso!");
-                location.reload();
-            }
-            
-            due();
-             due();
-         } else {
-            slittasinistra();
-            if (haiPerso()) {
-                alert("Hai perso!");
-                location.reload();
-            }
-            
-            due();
-            
-         }
-     } else {
-         if (deltaY > 0) {
+        }
+    } else {
+        // Movimento verticale
+        if (deltaY > 0) {
             slittaSotto();
-            if (haiPerso()) {
-                alert("Hai perso!");
-                location.reload();
-            }
-         
-            due();
-
-         } else {
+        } else {
             slittaSopra();
-            if (haiPerso()) {
-                alert("Hai perso!");
-                location.reload();
-            }
-          
-            due();
+        }
+    }
 
-         }
-     }
- 
-     if (haiPerso()) {
-         alert("Hai perso!");
-         location.reload();
-     }
- 
-     due();
-     document.getElementById("punti").innerText = punti;
- });
+    if (haiPerso()) {
+        alert("Hai perso!");
+        location.reload();
+    }
+
+    document.getElementById("punti").innerText = punti;
+    due();
+});
 
  function filtrazero(riga){
     return riga.filter(num => num != 0);
