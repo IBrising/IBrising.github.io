@@ -1,4 +1,4 @@
-  var base;
+ var base;
  var punti=0;
  var rig=6;
  var col=6;
@@ -94,12 +94,26 @@ function nuovoGioco(){
             } else if (maxValore === 128) {
                 nuovoNumero = 4;
             } else if (maxValore === 256) {
-               
                 nuovoNumero = Math.random() < 0.5 ? 4 : 8;
-            } else {
-                
-                nuovoNumero = Math.pow(2, Math.floor(Math.random() * Math.log2(maxValore) + 1));
-            }
+            } else if (maxValore === 512) {
+               
+                nuovoNumero = 8;
+            } else if (maxValore === 1024) {
+               
+                nuovoNumero = Math.random() < 0.5 ? 8 : 16;
+            } else if (maxValore === 2048) {
+               
+                nuovoNumero = 16;
+            } else if (maxValore === 4096) {
+               
+                nuovoNumero = Math.random() < 0.5 ? 16 : 32;
+            } else if (maxValore === 8192) {
+               
+                nuovoNumero = 32;
+            } else if (maxValore === 16384) {
+               
+                nuovoNumero = Math.random() < 0.5 ? 32 : 64;
+            } else
 
             base[r][c] = nuovoNumero;
             let piastr = document.getElementById(r.toString() + "-" + c.toString());
