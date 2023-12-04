@@ -1,14 +1,19 @@
- var base;
+  var base;
  var punti=0;
  var rig=6;
  var col=6;
  var minuti=0;
  var secondi=0;
  var decimi=0;
+ var nuovoNumero;
+ var record=0;
  window.onload = function(){
+    record = recuperaRecord();
+    document.getElementById("record").innerText = record;
     setGioco();
     startCronometro();
     document.getElementById("nuovoGioco").addEventListener("click", nuovoGioco);
+    
  }
 function startCronometro(){
     intervallo=setInterval( function (){
@@ -43,6 +48,7 @@ function nuovoGioco(){
         [0,0,0,0,0,0],
         [0,0,0,0,0,0],
         [0,0,0,0,0,0]
+        
     ]
 
     for(let r=0;r<rig;r++){
@@ -78,16 +84,32 @@ function nuovoGioco(){
         let c = Math.floor(Math.random() * col);
 
         if (base[r][c] == 0) {
-            base[r][c] = 2;
-            let piastr = document.getElementById(r.toString() + "-" + c.toString());
-            piastr.innerText = "2";
-            piastr.classList.add("p2", "nuova-piastr");
+            let maxValore = Math.max(...base.map(row => Math.max(...row)))
 
+            if (maxValore === 2 || maxValore === 0) {
+                nuovoNumero = 2;
+            } else if (maxValore === 64) {
+                
+                nuovoNumero = Math.random() < 0.5 ? 2 : 4;
+            } else if (maxValore === 128) {
+                nuovoNumero = 4;
+            } else if (maxValore === 256) {
+               
+                nuovoNumero = Math.random() < 0.5 ? 4 : 8;
+            } else {
+                
+                nuovoNumero = Math.pow(2, Math.floor(Math.random() * Math.log2(maxValore) + 1));
+            }
+
+            base[r][c] = nuovoNumero;
+            let piastr = document.getElementById(r.toString() + "-" + c.toString());
+            piastr.innerText = nuovoNumero.toString();
+            piastr.classList.add("p" + nuovoNumero.toString(), "nuova-piastr");
 
             setTimeout(() => {
                 piastr.style.transition = 'transform 0.3s ease-in-out';
                 piastr.style.transform = 'scale(1)';
-            }, 0);
+            }, 100);
 
             setTimeout(() => {
                 piastr.classList.remove("nuova-piastr");
@@ -131,7 +153,7 @@ function aggiornapiastr(piastr, num) {
             alert("Hai perso!");
             location.reload();
         }
-        due();
+        
         due();
     }
     else if(e.code == "ArrowRight"){
@@ -140,7 +162,7 @@ function aggiornapiastr(piastr, num) {
             alert("Hai perso!");
             location.reload();
         }
-        due();
+        
         due();
     }
     else if(e.code == "ArrowUp"){
@@ -149,7 +171,7 @@ function aggiornapiastr(piastr, num) {
             alert("Hai perso!");
             location.reload();
         }
-        due();
+      
         due();
     }
     else if(e.code == "ArrowDown"){
@@ -158,11 +180,80 @@ function aggiornapiastr(piastr, num) {
             alert("Hai perso!");
             location.reload();
         }
-        due();
+     
         due();
     }
     document.getElementById("punti").innerText = punti;
  })
+ let startTouchX, startTouchY;
+
+ document.addEventListener("touchstart", (e) => {
+     startTouchX = e.touches[0].clientX;
+     startTouchY = e.touches[0].clientY;
+ });
+ 
+ document.addEventListener("touchmove", (e) => {
+     e.preventDefault(); // Per evitare lo scrolling della pagina su dispositivi mobili
+ });
+ 
+ document.addEventListener("touchend", (e) => {
+     const endTouchX = e.changedTouches[0].clientX;
+     const endTouchY = e.changedTouches[0].clientY;
+ 
+     const deltaX = endTouchX - startTouchX;
+     const deltaY = endTouchY - startTouchY;
+ 
+     if (Math.abs(deltaX) > Math.abs(deltaY)) {
+         if (deltaX > 0) {
+            slittasinistra();
+            if (haiPerso()) {
+                alert("Hai perso!");
+                location.reload();
+            }
+            
+            due();
+             due();
+         } else {
+            slittasinistra();
+            if (haiPerso()) {
+                alert("Hai perso!");
+                location.reload();
+            }
+            
+            due();
+            
+         }
+     } else {
+         if (deltaY > 0) {
+            slittaSotto();
+            if (haiPerso()) {
+                alert("Hai perso!");
+                location.reload();
+            }
+         
+            due();
+
+         } else {
+            slittaSopra();
+            if (haiPerso()) {
+                alert("Hai perso!");
+                location.reload();
+            }
+          
+            due();
+
+         }
+     }
+ 
+     if (haiPerso()) {
+         alert("Hai perso!");
+         location.reload();
+     }
+ 
+     due();
+     document.getElementById("punti").innerText = punti;
+ });
+
  function filtrazero(riga){
     return riga.filter(num => num != 0);
  }
@@ -238,26 +329,40 @@ function slitta(riga){
         }
     }
  }
+ function recuperaRecord() {
+    const recordSalvato = localStorage.getItem('record');
+    return recordSalvato ? parseInt(recordSalvato) : 0;
+}
  function haiPerso() {
-    // Controlla se ci sono piastre vuote sulla board
+    if (punti > record) {
+        record = punti;
+        localStorage.setItem('record', record.toString());
+        aggiornaRecordVisuale(); 
+    }
+    
     for (let r = 0; r < rig; r++) {
         for (let c = 0; c < col; c++) {
             if (base[r][c] === 0) {
-                return false; // Se c'è almeno uno zero, ci sono ancora mosse possibili
+                return false; 
             }
         }
     }
 
-    // Controlla se ci sono piastre adiacenti uguali
+   
     for (let r = 0; r < rig; r++) {
         for (let c = 0; c < col; c++) {
             if ((r !== rig - 1 && base[r][c] === base[r + 1][c]) || 
                 (c !== col - 1 && base[r][c] === base[r][c + 1])) {
-                return false; // Se ci sono piastre adiacenti uguali, ci sono ancora mosse possibili
+                return false; 
             }
         }
     }
 
-    // Se nessuna delle condizioni precedenti è soddisfatta, il giocatore ha perso
     return true;
+}
+function aggiornaRecordVisuale() {
+    const recordElement = document.getElementById("record");
+    if (recordElement) {
+        recordElement.innerText = record;
+    }
 }
